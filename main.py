@@ -1,12 +1,12 @@
 # インストールした discord.py を読み込む
 import discord
 from discord.ext import commands
+import os
 
 # 定義#1
 BACKUP_CHANNEL_ID = 995463878257430558
 DEFAULT_PREFIX = 'a!'
-TOKEN = 'token'
-
+TOKEN = 'OTczOTI4NzkzMTU0NjYyNDEw.G3-C77.kprN-xu13ZGTDFiSy73kru436lAYJZdCxy9PAI'
 def _change_command_prefix(bot: commands.Bot, msg: discord.Message):
     if str(msg.guild.id) in prefix_dict.keys():
         return prefix_dict[str(msg.guild.id)]
@@ -30,21 +30,23 @@ client = discord.Client
 @bot.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
-    print( client.user.name + 'でログインしたよ！')
-    # いろいろな定義#2
-    bot.owner = bot.get_user(964887498436276305)
-    bot.admin = bot.guild.get_role(995450894659362836)
-    bot.notfy_ch = bot.guild.get_channel(995451213149638656)
-    bot.manage_guild = bot.get_guild(984807772333932594)
-    
-     for file in os.listdir('./cog'):
+    global backup_ch
+    global prefix_dict
+
+    backup_ch = await bot.fetch_channel(BACKUP_CHANNEL_ID)
+    prefix_dict = {}
+
+    async for m in backup_ch.history():
+        splited = m.content.split(' ', 1)
+        prefix_dict[splited[0]] = splited[1]
+    for file in os.listdir('./cogs/'):
         if file.endswith('.py'):
             try:
-                await bot.load_extension(f'cog.{file[:-3]}')
-                print(f'Loaded cog: cogs.{file[:-3]}')
+                await bot.load_extension(f'cogs/')
+                print(f'Loaded cog: fun.{file[:-3]}')
             except:
                 traceback.print_exc()
-
+                print( client.user.name + 'でログインしたよ！')
 
 # メッセージ受信時に動作する
 @bot.event
@@ -67,19 +69,7 @@ async def on_message(message):
         await message.channel.send('な阪関無')
         
 # serverprefix
-@bot.event
-async def on_ready():
-    global backup_ch
-    global prefix_dict
 
-    backup_ch = await bot.fetch_channel(BACKUP_CHANNEL_ID)
-    prefix_dict = {}
-
-    async for m in backup_ch.history():
-        splited = m.content.split(' ', 1)
-        prefix_dict[splited[0]] = splited[1]
-
-    print('ready')
 
 
 @bot.command(aliases=['cp'])
