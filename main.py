@@ -2,7 +2,10 @@
 import discord
 from discord.ext import commands
 # prefix&intent
-bot = commands.Bot(command_prefix = "a!", intents=discord.Intents.all())
+bot = commands.Bot(
+    command_prefix = "a!",
+    activity = discord.Activity(name = 'Aicybot', type = discord.ActivityType.playing),
+    intents=discord.Intents.all())
 # help削除
 bot.remove_command("help")
 
@@ -17,6 +20,11 @@ TOKEN = 'token'
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print( client.user.name + 'でログインしたよ！')
+    # いろいろな定義
+    bot.owner = bot.get_user(964887498436276305)
+    bot.admin = bot.guild.get_role(995450894659362836)
+    bot.notfy_ch = bot.guild.get_channel(995451213149638656)
+    bot.manage_guild = bot.get_guild(984807772333932594)
 
 # 天気
 # どこを取得するか
