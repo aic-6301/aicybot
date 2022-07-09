@@ -25,6 +25,14 @@ async def on_ready():
     bot.admin = bot.guild.get_role(995450894659362836)
     bot.notfy_ch = bot.guild.get_channel(995451213149638656)
     bot.manage_guild = bot.get_guild(984807772333932594)
+    
+     for file in os.listdir('./cog'):
+        if file.endswith('.py'):
+            try:
+                await bot.load_extension(f'cog.{file[:-3]}')
+                print(f'Loaded cog: cogs.{file[:-3]}')
+            except:
+                traceback.print_exc()
 
 # 天気
 # どこを取得するか
@@ -103,7 +111,6 @@ async def on_message(message):
 
       else:
         await client.send_message(message.channel, message.content + "は対応していないか受信ができませんでした。")
-    
 
 # メッセージ受信時に動作する
 @bot.event
