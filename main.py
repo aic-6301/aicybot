@@ -1,22 +1,23 @@
 # インストールした discord.py を読み込む
 import discord
 from discord.ext import commands
-
-bot = commands.Bot(command_prefix = "m!", intents=discord.Intents.all())
+# prefix&intent
+bot = commands.Bot(command_prefix = "a!", intents=discord.Intents.all())
+# help削除
 bot.remove_command("help")
 
-# 自分のBotのアクセストークンに置き換えてください
-TOKEN = 'token'
+#client
+client = discord.Client
 
-# 接続に必要なオブジェクトを生成
-client = discord.Client()
+# token
+TOKEN = 'token'
 
 # 起動時に動作する処理
 @bot.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print( client.user.name + 'でログインしたよ！')
-    @client.event
+
 # 天気
 # どこを取得するか
 citycodes = {
@@ -96,11 +97,12 @@ async def on_message(message):
         await client.send_message(message.channel, message.content + "は対応していないか受信ができませんでした。")
 
 # サーバー情報
-@bot.command)
+@bot.command()
 async def serverinfo(ctx):
     guild = ctx.message.guild
     roles =[role for role in guild.role]
     text_channels = [text_channels for textchannels in guild.text_channels]
+    #embedのないよう
     embed = discord.Embed(title=f"サーバー情報 - {guild.name}",timestamp=ctx.message.created_at,color=discord.Colour.purple(),inline=False)
     embed.set.thumbnail(url=ctx.guild.icon.url)
     embed.add_field(name="サーバー名",value=f"{guild.name}",inline=False)
@@ -121,7 +123,7 @@ async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
-    # 「/neko」と発言したら「にゃーん」が返る処理
+    # 「/おはよう」と発言したら「おはようございます」が返る処理
     if message.content == 'おはよう':
         await message.channel.send('おはようございます！')
 
