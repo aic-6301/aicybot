@@ -1,5 +1,9 @@
 # インストールした discord.py を読み込む
 import discord
+from discord.ext import commands
+
+bot = commands.Bot(command_prefix = "m!", intents=discord.Intents.all())
+bot.remove_command("help")
 
 # 自分のBotのアクセストークンに置き換えてください
 TOKEN = 'token'
@@ -8,7 +12,7 @@ TOKEN = 'token'
 client = discord.Client()
 
 # 起動時に動作する処理
-@client.event
+@bot.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print( client.user.name + 'でログインしたよ！')
@@ -16,23 +20,58 @@ async def on_ready():
 # 天気
 # どこを取得するか
 citycodes = {
-    "土浦": '080020',
-    "水戸": '080010',
-    "札幌": '016010',
-    "仙台": '040010',
-    "東京": '130010',
-    "横浜": '140010',
-    "名古屋": '230010',
-    "大阪": '270000',
-    "広島": '340010',
-    "福岡": '400010',
-    "鹿児島": '460010',
-    "那覇": '471010'
+    "北海道":"016010",
+    "青森":"020010",
+    "岩手":"030010",
+    "宮城":"040010",
+    "秋田":"050010",
+    "山形":"060010",
+    "福島":"070010",
+    "茨城":"080010",
+    "栃木":"090010",
+    "群馬":"100010",
+    "埼玉":"110010",
+    "千葉":"120010",
+    "東京":"130010",
+    "神奈川":"140010",
+    "新潟":"150010",
+    "富山":"160010",
+    "石川":"170010",
+    "福井":"180010",
+    "山形":"190010",
+    "長野":"200010",
+    "岐阜":"210010",
+    "静岡":"220010",
+    "愛知":"230010",
+    "三重":"240010",
+    "滋賀":"250010",
+    "京都":"260010",
+    "大阪":"270000",
+    "兵庫":"280010",
+    "奈良":"290010",
+    "和歌山":"300010",
+    "鳥取":"310010",
+    "島根":"320010",
+    "岡山":"330010",
+    "広島":"340010",
+    "山口":"350010",
+    "徳島":"360010",
+    "香川":"370000",
+    "愛媛":"380010",
+    "高知":"390010",
+    "福島":"400010",
+    "佐賀":"410010",
+    "長崎":"420010",
+    "熊本":"430010",
+    "大分":"440010",
+    "宮崎":"450010",
+    "鹿児島":"460010",
+    "沖縄":"471010",    
 }
 
  # 取得
     
-@client.event
+@bot.event
 async def on_message(message):
   if message.author != client.user:
 
@@ -57,7 +96,7 @@ async def on_message(message):
         await client.send_message(message.channel, message.content + "は対応していないか受信ができませんでした。")
 
 # メッセージ受信時に動作する処理
-@client.event
+@bot.event
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
@@ -67,7 +106,7 @@ async def on_message(message):
         await message.channel.send('おはようございます！')
 
 # 334への返信
-@client.event
+@bot.event
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
@@ -75,5 +114,37 @@ async def on_message(message):
     # 「334」と発言したら「な阪関無」が返る処理
     if message.content == '334':
         await message.channel.send('な阪関無')
+        
+# エラーを送信
+
+    
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, discord.ext.commands.errors.MissingPermissions):
+        embed = discord.Embed(title=":x: 失敗 -MissingPermissions", description=f"実行者の必要な権限が無いため実行出来ません。", timestamp=ctx.message.created_at, color=discord.Colour.red())
+        embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
+        await ctx.send(embed=embed)
+    elif isinstance(error, discord.ext.commands.errors.BotMissingPermissions):
+        embed = discord.Embed(title=":x: 失敗 -BotMissingPermissions", description=f"Botの必要な権限が無いため実行出来ません。", timestamp=ctx.message.created_at, color=discord.Colour.red())
+        embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
+        await ctx.send(embed=embed)
+    elif isinstance(error, discord.ext.commands.errors.CommandNotFound):
+        embed = discord.Embed(title=":x: 失敗 -CommandNotFound", description=f"不明なコマンドもしくは現在使用不可能なコマンドです。", timestamp=ctx.message.created_at, color=discord.Colour.red())
+        embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
+        await ctx.send(embed=embed)
+    elif isinstance(error, discord.ext.commands.errors.MemberNotFound):
+        embed = discord.Embed(title=":x: 失敗 -MemberNotFound", description=f"指定されたメンバーが見つかりません。", timestamp=ctx.message.created_at, color=discord.Colour.red())
+        embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
+        await ctx.send(embed=embed)
+    elif isinstance(error, discord.ext.commands.errors.BadArgument):
+        embed = discord.Embed(title=":x: 失敗 -BadArgument", description=f"指定された引数がエラーを起こしているため実行出来ません。", timestamp=ctx.message.created_at, color=discord.Colour.red())
+        embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
+        await ctx.send(embed=embed) 
+    elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
+        embed = discord.Embed(title=":x: 失敗 -BadArgument", description=f"指定された引数が足りないため実行出来ません。", timestamp=ctx.message.created_at, color=discord.Colour.red())
+        embed.set_footer(text="お困りの場合は、サーバー管理者をメンションしてください。")
+        await ctx.send(embed=embed) 
+    else:
+        raise error
 # Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
+bot.run(TOKEN)
