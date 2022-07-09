@@ -21,4 +21,4 @@ async def serverinfo(self,ctx):
     await ctx.send(embed=embed)
     
     def setup(bot):
-     bot.add_cog(GreetingsCog(bot))
+     bot.add_cog(serverinfo(bot))
