@@ -55,7 +55,7 @@ citycodes = {
  # 取得
     
 @bot.event
-async def on_message(message):
+async def on_message(self,message):
   if message.author != client.user:
 
     reg_res = re.compile(u"(.+)の天気").search(message.content)
