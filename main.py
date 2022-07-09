@@ -6,7 +6,7 @@ import os
 # 定義#1
 BACKUP_CHANNEL_ID = 995463878257430558
 DEFAULT_PREFIX = 'a!'
-TOKEN = 'OTczOTI4NzkzMTU0NjYyNDEw.G3-C77.kprN-xu13ZGTDFiSy73kru436lAYJZdCxy9PAI'
+TOKEN = 'token'
 def _change_command_prefix(bot: commands.Bot, msg: discord.Message):
     if str(msg.guild.id) in prefix_dict.keys():
         return prefix_dict[str(msg.guild.id)]
