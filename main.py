@@ -95,7 +95,18 @@ async def on_message(message):
       else:
         await client.send_message(message.channel, message.content + "は対応していないか受信ができませんでした。")
 
-# メッセージ受信時に動作する処理
+# サーバー情報
+@bot.command)
+async def serverinfo(ctx):
+    guild = ctx.message.guild
+    roles =[role for role in guild.role]
+    text_channels = [text_channels for textchannels in guild.text_channels]
+    embed = discord.Embed(title=f"サーバー情報 - {guild.name}",timestamp=ctx.message.created_at,color=discord.Colour.purple(),inline=False)
+    embed.set.thumbnail(url=ctx.guild.icon.url)
+    embed.add_field(name="サーバー名",value=f"{guild.namenline=False)
+    embed.add_field(name="サーバー地域",value=f"{ctx.guild.region}",inline=False)
+    embed.add_field(name="チャンネル数",value=f"{len(text_channels)}",inline=False)
+# メッセージ受信時に動作する
 @bot.event
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
