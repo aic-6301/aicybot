@@ -57,7 +57,7 @@ async def on_ready():
                 print(f'Loaded cog: bot.{file[:-3]}')
             except:
                 traceback.print_exc()
-     for file in os.listdir('./cogs/tools'):
+     for file in os.listdir('./cogs/tool'):
         if file.endswith('.py'):
             try:
                 await bot.load_extension(f'cogs/{file[:-3]}')
