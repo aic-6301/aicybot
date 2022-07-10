@@ -1,5 +1,8 @@
 import discord
-from discord.ext import commads
+from discord.ext import commands
+import os
+import traceback
+import asyncio
 
 @bot.command()
  async def help(self,ctx):
