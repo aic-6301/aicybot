@@ -5,12 +5,12 @@ import traceback
 import asyncio
 
 # 読み込んだら通知
- @commands.Cog.listener()
-     # Cogが読み込まれた時に発動
-     async def on_ready(self):
+@commands.Cog.listener()
+　　# 読み込まれたらprint
+    async def on_message(self, message):
          print('鯖情報cogが読み込まれたよ！')
 
-@bot.command()
+@commands.command()
 async def serverinfo(self,ctx):
     guild = ctx.message.guild
     roles =[role for role in guild.role]
