@@ -1,5 +1,8 @@
 import discord
 from discord.ext import commands
+import os
+import traceback
+import asyncio
 
 # 読み込んだら通知
  @commands.Cog.listener()
