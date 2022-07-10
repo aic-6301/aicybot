@@ -50,20 +50,20 @@ async def on_ready():
     async for m in backup_ch.history():
         splited = m.content.split(' ', 1)
         prefix_dict[splited[0]] = splited[1]
-    for file in os.listdir('./cogs/bot'):
-        if file.endswith('.py'):
-            try:
-                await bot.load_extension(f'cogs/{file[:-3]}')
-                print(f'Loaded cog: bot.{file[:-3]}')
-            except:
-                traceback.print_exc()
-     for file in os.listdir('./cogs/tool'):
-        if file.endswith('.py'):
-            try:
-                await bot.load_extension(f'cogs/{file[:-3]}')
-                print(f'Loaded cog: tools.{file[:-3]}')
-            except:
-                traceback.print_exc()
+ #   for file in os.listdir('./cogs/bot'):
+ #       if file.endswith('.py'):
+ #           try:
+ #               await bot.load_extension(f'cogs/{file[:-3]}')
+ #               print(f'Loaded cog: bot.{file[:-3]}')
+ #           except:
+ #               traceback.print_exc()
+ #    for file in os.listdir('./cogs/tool'):
+ #       if file.endswith('.py'):
+ #           try:
+ #               await bot.load_extension(f'cogs/{file[:-3]}')
+ #               print(f'Loaded cog: tools.{file[:-3]}')
+ #           except:
+ #               traceback.print_exc()
                 print( client.user.name + 'でログインしたよ！')
                 
                 
