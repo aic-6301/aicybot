@@ -15,5 +15,5 @@ import asyncio
     embed.set_footer(text=f"実行者：{ctx.author} ",icon_url=ctx.author.avatar_url)
     await ctx.send(embed=embed)
   
-def setup(bot):
- bot.add_cog(help(bot))
+async def setup(bot):
+  await bot.add_cog(help(bot))
