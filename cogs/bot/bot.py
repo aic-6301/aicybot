@@ -4,7 +4,7 @@ import os
 import traceback
 import asyncio
 
-@bot.command()
+@commands.command()
   async def help(self,ctx):
     embed = discord.Embed(title=f"help",timestamp=ctx.message.created_at,color=discord.Colour.purple(),inline=False)
     embed.set.thumbnail(url=ctx.guild.icon.url)
