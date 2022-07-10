@@ -5,9 +5,8 @@ import traceback
 import asyncio
 
 
-
 @commands.command()
- async def serverinfo(self,ctx):
+  async def serverinfo(self,ctx):
     guild = ctx.message.guild
     roles =[role for role in guild.role]
     text_channels = [text_channels for textchannels in guild.text_channels]
@@ -25,5 +24,5 @@ import asyncio
     embed.set_footer(text=f"実行者：{ctx.author} ",icon_url=ctx.author.avatar_url)
     await ctx.send(embed=embed)
     
- def setup(bot):
-  bot.add_cog(serverinfo(bot))
+async def setup(bot):
+  await bot.add_cog(serverinfo(bot))
