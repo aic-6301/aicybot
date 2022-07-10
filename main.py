@@ -5,16 +5,23 @@ import os
 import traceback
 import asyncio
 
-# 定義 1
-BACKUP_CHANNEL_ID = 995463878257430558
-DEFAULT_PREFIX = 'a!'
-TOKEN = 'token'
-def _change_command_prefix(bot: commands.Bot, msg: discord.Message):
-    if str(msg.guild.id) in prefix_dict.keys():
-        return prefix_dict[str(msg.guild.id)]
+intents = discord.Intents.all()
+def _prefix_callable(bot: commands.Bot, msg: discord.Message) -> str:
+    base = [f"<@!{bot.user.id}> ", f"<@{bot.user.id}> ", PREFIX]
+    if msg.guild is None:  # dmの場合
+        return base
     else:
-        return DEFAULT_PREFIX
+        if msg.guild.me.nick is None:
+            return base
+        nick = msg.guild.me.display_name
+        result = nick.strip(f":{bot.user}")
+        # print(result)
+        base = [f"<@!{bot.user.id}> ", f"<@{bot.user.id}> ", PREFIX, result]
+        # extras = await prefixes_for(message.guild) # returns a list
+        # return commands.when_mentioned_or(*base)(bot, msg)
+        return base
 
+bot = commands.Bot(command_prefix=_prefix_callable, intents=intents)
 # prefix&intent
 bot = commands.Bot(
     command_prefix = _change_command_prefix,
