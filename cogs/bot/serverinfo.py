@@ -7,7 +7,7 @@ import asyncio
 # 読み込んだら通知
 @commands.Cog.listener()
     # 読み込まれたらprint
-    async def on_message(self, message):
+    async def on_message(self):
          print('鯖情報cogが読み込まれたよ！')
 
 @commands.command()
