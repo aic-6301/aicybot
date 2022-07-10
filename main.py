@@ -23,8 +23,7 @@ bot = commands.Bot(
 # help削除
 bot.remove_command("help")
 
-#client
-client = discord.Client
+
 
 
 
