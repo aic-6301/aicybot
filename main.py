@@ -2,6 +2,8 @@
 import discord
 from discord.ext import commands
 import os
+import traceback
+import asyncio
 
 # 定義#1
 BACKUP_CHANNEL_ID = 995463878257430558
