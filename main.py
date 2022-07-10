@@ -22,8 +22,7 @@ bot = commands.Bot(
     intents=discord.Intents.all())
 # help削除
 bot.remove_command("help")
-
-#client
+# client
 client = discord.Client
 
 
@@ -59,13 +58,6 @@ async def on_message(message):
     # 「/おはよう」と発言したら「おはようございます」が返る処理
     if message.content == 'おはよう':
         await message.channel.send('おはようございます！')
-
-# 334への返信
-@bot.event
-async def on_message(message):
-    # メッセージ送信者がBotだった場合は無視する
-    if message.author.bot:
-        return
     # 「334」と発言したら「な阪関無」が返る処理
     if message.content == '334':
         await message.channel.send('な阪関無')
