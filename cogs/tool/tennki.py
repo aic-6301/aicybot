@@ -4,11 +4,7 @@ import os
 import traceback
 import asyncio
 
-# 読み込んだら通知
-@commands.Cog.listener()
-  # Cogが読み込まれた時に発動
-  async def on_ready(self):
-   print('天気cogが読み込まれたよ！')
+
 # 天気
 # どこを取得するか
 citycodes = {
@@ -67,7 +63,7 @@ citycodes = {
 async def on_message(self,message):
   if message.author != client.user:
 
-    reg_res = re.compile(u"(.+)の天気").search(message.content)
+    reg_res = re.compile(u"a!tenki (.+)").search(message.content)
     if reg_res:
 
       if reg_res.group(1) in citycodes.keys():
@@ -87,5 +83,5 @@ async def on_message(self,message):
       else:
         await client.send_message(message.channel, message.content + "は対応していないか受信ができませんでした。")
 
-        def setup(bot):
-     bot.add_cog(tennki(bot)) # GreetingsCogにBotを渡してインスタンス化し、Botにコグとして登録する
+async def setup(bot):
+  await bot.add_cog(tenki(bot))
