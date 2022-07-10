@@ -5,7 +5,7 @@ import os
 import traceback
 import asyncio
 
-# 定義#1
+# 定義 1
 BACKUP_CHANNEL_ID = 995463878257430558
 DEFAULT_PREFIX = 'a!'
 TOKEN = 'token'
