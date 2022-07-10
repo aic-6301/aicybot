@@ -5,10 +5,10 @@ import traceback
 import asyncio
 
 # 読み込んだら通知
- @commands.Cog.listener()
-     # Cogが読み込まれた時に発動
-     async def on_ready(self):
-         print('天気cogが読み込まれたよ！')
+@commands.Cog.listener()
+   # Cogが読み込まれた時に発動
+    async def on_ready(self):
+        print('天気cogが読み込まれたよ！')
 # 天気
 # どこを取得するか
 citycodes = {
